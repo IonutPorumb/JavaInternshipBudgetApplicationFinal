@@ -1,9 +1,9 @@
 package com.accenture.payment.processor.payment;
 
 import com.accenture.model.PaymentEntity;
-import com.accenture.model.Transaction;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,7 +14,7 @@ public class PaymentController {
     private final PaymentService paymentService;
     @GetMapping("/{id}")
     @Secured("ROLE_USER")
-    public PaymentEntity findPaymentById(@PathVariable Integer id){
+    public PaymentEntity findPaymentById(@PathVariable @Validated Integer id){
         return paymentService.findPaymentById(id);
     }
 
@@ -27,14 +27,14 @@ public class PaymentController {
     // Delete a payment by id
     @DeleteMapping("/{id}")
     @Secured("ROLE_USER")
-    public Integer deletePaymentById(@PathVariable Integer id){
+    public Integer deletePaymentById(@PathVariable @Validated Integer id){
         return paymentService.deletePaymentById(id);
     }
 
     // Update a payment by id
     @PutMapping("/{id}")
     @Secured("ROLE_ADMIN")
-    public PaymentEntity updatePaymentById(@PathVariable Integer id,
+    public PaymentEntity updatePaymentById(@PathVariable @Validated Integer id,
                                            @RequestBody PaymentEntity paymentEntity){
         return paymentService.updatePaymentById(id, paymentEntity);
     }
