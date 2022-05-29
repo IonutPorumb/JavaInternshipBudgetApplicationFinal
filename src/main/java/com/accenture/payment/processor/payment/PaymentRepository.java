@@ -15,7 +15,7 @@ import java.awt.geom.Arc2D;
 import java.time.LocalDateTime;
 
 @Repository
-public interface PaymentRepository extends JpaRepository<Transaction, Integer> {
+public interface PaymentRepository extends JpaRepository<PaymentEntity, Integer> {
 
     //  Find a payment by id
     @Query("select pe from PaymentEntity pe where pe.paymentId=:id")
@@ -30,6 +30,7 @@ public interface PaymentRepository extends JpaRepository<Transaction, Integer> {
     @Transactional
     @Query(value = "delete from payment_entities where payment_id=:id", nativeQuery = true)
     Integer deletePaymentById(@Param("id") Integer id);
+
     // Update a payment by id
     @Modifying
     @Transactional

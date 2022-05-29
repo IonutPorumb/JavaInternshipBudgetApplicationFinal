@@ -31,21 +31,20 @@ public class PaymentService {
         return paymentRepository.deletePaymentById(id);
     }
 
-//    // Update a payment by id
-//    public PaymentEntity updatePaymentById(Integer id, Double paymentAmount, String customerName,
-//                                  LocalDateTime paymentDate, String paymentDescription){
-//        if (paymentRepository.findPaymentById(id) != null) {
-//            PaymentEntity paymentEntity = paymentRepository.findPaymentById(id);
-//            LocalDateTime modificationDate = LocalDateTime.now();
-//            paymentEntity.setPaymentAmount(paymentAmount);
-//            paymentEntity.setCustomerName(customerName);
-//            paymentEntity.setPaymentDate(modificationDate);
-//            paymentEntity.setPaymentDescription(paymentDescription);
-//            paymentRepository.save(paymentEntity);
-//        } else {
-//            System.out.println("There is no payment available with the required id number");
-//            return null;
-//        }
-//    }
+    // Update a payment by id
+    public PaymentEntity updatePaymentById(Integer id, PaymentEntity paymentEntity){
+        if (paymentRepository.findById(id).isPresent()) {
+            PaymentEntity existingPaymentEntity = paymentRepository.getById(id);
+            LocalDateTime modificationDate = LocalDateTime.now();
+            paymentEntity.setPaymentAmount(paymentEntity.getPaymentAmount());
+            paymentEntity.setCustomerName(paymentEntity.getCustomerName());
+            paymentEntity.setPaymentDate(modificationDate);
+            paymentEntity.setPaymentDescription(paymentEntity.getPaymentDescription());
+            return paymentRepository.save(existingPaymentEntity);
+        } else {
+            System.out.println("There is no payment available with the required id number");
+            return null;
+        }
+    }
 
 }
