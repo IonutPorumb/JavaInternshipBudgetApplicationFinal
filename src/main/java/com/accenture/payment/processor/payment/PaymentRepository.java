@@ -30,19 +30,4 @@ public interface PaymentRepository extends JpaRepository<PaymentEntity, Integer>
     @Transactional
     @Query(value = "delete from payment_entities where payment_id=:id", nativeQuery = true)
     Integer deletePaymentById(@Param("id") Integer id);
-
-    // Update a payment by id
-    @Modifying
-    @Transactional
-    @Query(value = "update payment_entities SET payment_amount=:payment_amount," +
-            "customer_name=:customer_name," +
-            "payment_date=:payment_date," +
-            "payment_description=:payment_description", nativeQuery = true)
-    void updatePaymentById(@Param("id") Integer id,
-                           @Param("payment_date") LocalDateTime paymentDate,
-                           @Param("customer_name") String customerName,
-                           @Param("payment_amount") Double paymentAmount,
-                           @Param("payment_description") String paymentDescription);
-
-
 }

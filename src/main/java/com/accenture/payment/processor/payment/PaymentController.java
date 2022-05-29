@@ -6,9 +6,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 @RestController
 @RequestMapping("/payment")
 @AllArgsConstructor
@@ -40,6 +37,13 @@ public class PaymentController {
     public PaymentEntity updatePaymentById(@PathVariable Integer id,
                                            @RequestBody PaymentEntity paymentEntity){
         return paymentService.updatePaymentById(id, paymentEntity);
+    }
+
+    // Adds a new payment
+    @PostMapping
+    @Secured("ROLE_ADMIN")
+    public PaymentEntity insertNewPayment(@RequestBody PaymentEntity paymentEntity) {
+        return paymentService.insertNewPayment(paymentEntity);
     }
 
 
