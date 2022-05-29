@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 public class PaymentController {
     //  Find a payment by id
     private final PaymentService paymentService;
+
+    @ExceptionHandler
     @GetMapping("/{id}")
     @Secured("ROLE_USER")
     public PaymentEntity findPaymentById(@PathVariable @Validated Integer id){
